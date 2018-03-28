@@ -6,7 +6,7 @@ const router = express.Router();
 const User = require('../models/user');
 const { isLoggedIn } = require('../helpers/middleware');
 
-router.get('/me', (req, res, next) => {
+router.get('/me', (req, res) => {
   console.log('me', req.session.currentUser);
   if (req.session.currentUser) {
     res.json(req.session.currentUser);
@@ -20,8 +20,8 @@ router.post('/login', (req, res, next) => {
     return res.status(401).json({ error: 'unauthorized' });
   }
 
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username } = req.body;
+  const { password } = req.body;
 
   if (!username || !password) {
     return res.status(422).json({ error: 'validation' });
@@ -47,8 +47,8 @@ router.post('/signup', (req, res, next) => {
     return res.status(401).json({ error: 'unauthorized' });
   }
 
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username } = req.body;
+  const { password } = req.body;
 
   if (!username || !password) {
     return res.status(422).json({ error: 'validation' });
@@ -81,7 +81,7 @@ router.post('/logout', (req, res) => {
   return res.status(204).send();
 });
 
-router.get('/private', isLoggedIn(), (req, res, next) => {
+router.get('/private', isLoggedIn(), (req, res) => {
   res.status(200).json({ message: 'This is a private message' });
 });
 

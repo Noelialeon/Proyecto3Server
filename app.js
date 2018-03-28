@@ -12,16 +12,18 @@ const auth = require('./routes/auth');
 
 require('dotenv').config();
 
-
-if (process.env.NODE_ENV === 'development') {
-  mongoose.connect(process.env.DATABASE);
-} else {
-  mongoose.connect(process.env.DATABASE);
-}
+mongoose.connect('mongodb://localhost:27017/project3');
+// if (process.env.NODE_ENV === 'development') {
+// //   mongoose.connect(process.env.DATABASE);
+// } else {
+//   mongoose.connect(process.env.DATABASE);
+// }
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => console.log(`Connected to ${process.env.DATABASE} database`));
+db.once('open', () => console.log('Connected to database'));
+
+// db.once('open', () => console.log(`Connected to ${process.env.DATABASE} database`));
 
 const app = express();
 
