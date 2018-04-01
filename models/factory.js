@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
 
+const mongoose = require('mongoose');
+/* eslint-disable */
 const Schema = mongoose.Schema;
+const User = require('./user.js');
 
 const factorySchema = new Schema(
   {
@@ -10,6 +12,10 @@ const factorySchema = new Schema(
     country: String,
     activity: String,
     billing: String,
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   {
     timestamps: {

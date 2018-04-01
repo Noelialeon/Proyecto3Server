@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const Factory = require('../models/factory');
 
-router.get('/private', (req, res) => {
-  res.status(200).json({ message: 'Hola estas en la ruta' });
+router.get('/private-profile', (req, res) => {
+  res.status(200).json({ message: 'Hola estas en la ruta privada' });
 });
 
 router.get('/arms-factory', (req, res, next) => {
@@ -18,8 +18,6 @@ router.get('/arms-factory', (req, res, next) => {
 });
 
 router.post('/arms-factory', (req, res, next) => {
-  console.log('body', req.body);
-
   const newFactory = new Factory({
     companyName: req.body.companyName,
     address: req.body.address,
@@ -27,6 +25,7 @@ router.post('/arms-factory', (req, res, next) => {
     country: req.body.country,
     activity: req.body.activity,
     billing: req.body.billing,
+    // user_id: req.user.currentUser,
   });
 
   newFactory.save((err) => {
@@ -53,10 +52,12 @@ router.get('/arms-factory/:id', (req, res, next) => {
 router.put('/arms-factory/:id', (req, res, next) => {
   const { id } = req.params;
   const factoryToUpdate = {
-    brand: req.body.brand,
-    model: req.body.model,
-    specs: req.body.specs,
-    image: req.body.image || '',
+    companyName: req.body.companyName,
+    address: req.body.address,
+    zipcode: req.body.zipcode,
+    country: req.body.country,
+    activity: req.body.activity,
+    billing: req.body.billing,
   };
 
   Factory.findByIdAndUpdate(id, factoryToUpdate, (err) => {
