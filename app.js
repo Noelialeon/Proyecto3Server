@@ -9,15 +9,17 @@ const session = require('express-session');
 
 const rutas = require('./routes/rutas');
 const auth = require('./routes/auth');
+const buyerCountries = require('./routes/buyerCountries');
+
 
 require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/project3');
-// if (process.env.NODE_ENV === 'development') {
-// //   mongoose.connect(process.env.DATABASE);
-// } else {
-//   mongoose.connect(process.env.DATABASE);
-// }
+// mongoose.connect('mongodb://localhost:27017/project3');
+if (process.env.NODE_ENV === 'development') {
+  mongoose.connect(process.env.DATABASE);
+} else {
+  mongoose.connect(process.env.DATABASE);
+}
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -59,6 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', auth);
 app.use('/api', rutas);
+app.use('/buyerCountries', buyerCountries);
 
 app.use((req, res) => {
   res.sendfile(`${__dirname}/public/index.html`);

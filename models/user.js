@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+/* eslint-disable */
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
@@ -10,7 +10,7 @@ const userSchema = new Schema(
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at'
+      updatedAt: 'updated_at',
     },
   });
 

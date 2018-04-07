@@ -10,7 +10,7 @@ router.get('/me', (req, res) => {
   if (req.session.currentUser) {
     res.json(req.session.currentUser);
   } else {
-    res.status(404).json({ error: 'not-found' });
+    res.status(401).json({ error: 'not-found' });
   }
 });
 
