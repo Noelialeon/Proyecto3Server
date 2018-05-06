@@ -9,9 +9,12 @@ const factorySchema = new Schema(
     companyName: String,
     address: String,
     zipcode: String,
+    city: String,
     country: String,
     activity: String,
     billing: String,
+    lat: Number,
+    long: Number,
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',

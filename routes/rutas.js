@@ -7,6 +7,10 @@ router.get('/private-profile', (req, res) => {
   res.status(200).json({ message: 'Hola estas en la ruta privada' });
 });
 
+router.get('/add-factory', (req, res) => {
+  res.status(200).json({ message: 'Hola estas en add factory' });
+});
+
 router.get('/arms-factory', (req, res, next) => {
   Factory.find({}, (err, factoryList) => {
     if (err) {
@@ -17,17 +21,18 @@ router.get('/arms-factory', (req, res, next) => {
   });
 });
 
-router.post('/arms-factory', (req, res, next) => {
+router.post('/add-factory', (req, res, next) => {
   const newFactory = new Factory({
     companyName: req.body.companyName,
     address: req.body.address,
     zipcode: req.body.zipcode,
     country: req.body.country,
+    city: req.body.city,
     activity: req.body.activity,
     billing: req.body.billing,
-    // user_id: req.user.currentUser,
+    lat: req.body.lat,
+    long: req.body.long,
   });
-
   newFactory.save((err) => {
     if (err) {
       next(err);
@@ -56,8 +61,11 @@ router.put('/arms-factory/:id', (req, res, next) => {
     address: req.body.address,
     zipcode: req.body.zipcode,
     country: req.body.country,
+    city: req.body.city,
     activity: req.body.activity,
     billing: req.body.billing,
+    lat: req.body.lat,
+    long: req.body.long,
   };
 
   Factory.findByIdAndUpdate(id, factoryToUpdate, (err) => {
